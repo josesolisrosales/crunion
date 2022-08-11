@@ -5,6 +5,11 @@
 package crunion;
 
 import java.io.*;
+import javax.naming.InitialContext;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -36,7 +41,7 @@ public class CRUnion extends javax.swing.JFrame {
         textFieldClienteRegistrar = new javax.swing.JTextField();
         textFieldIdClienteRegistrar = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        textFieldApellidosClienteRegistrar = new javax.swing.JTextField();
+        textFieldApellidoClienteRegistrar = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         textFieldNacionalidadClienteRegistrar = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
@@ -52,7 +57,7 @@ public class CRUnion extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         textFieldNacionalidadClienteActualizar = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        textFieldApellidosClienteActualizar = new javax.swing.JTextField();
+        textFieldApellidoClienteActualizar = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         textFieldNombreClienteActualizar = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
@@ -122,10 +127,10 @@ public class CRUnion extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
         jLabel19.setText("ID del Cliente a Registrar");
 
-        textFieldApellidosClienteRegistrar.setFont(new java.awt.Font("Corbel", 0, 18)); // NOI18N
+        textFieldApellidoClienteRegistrar.setFont(new java.awt.Font("Corbel", 0, 18)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
-        jLabel20.setText("Apellidos del Cliente a Registrar");
+        jLabel20.setText("Apellido del Cliente a Registrar");
 
         textFieldNacionalidadClienteRegistrar.setFont(new java.awt.Font("Corbel", 0, 18)); // NOI18N
 
@@ -172,9 +177,9 @@ public class CRUnion extends javax.swing.JFrame {
         textFieldNacionalidadClienteActualizar.setFont(new java.awt.Font("Corbel", 0, 18)); // NOI18N
 
         jLabel26.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
-        jLabel26.setText("Apellidos del Cliente a Actualizar");
+        jLabel26.setText("Apellido del Cliente a Actualizar");
 
-        textFieldApellidosClienteActualizar.setFont(new java.awt.Font("Corbel", 0, 18)); // NOI18N
+        textFieldApellidoClienteActualizar.setFont(new java.awt.Font("Corbel", 0, 18)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
         jLabel10.setText("Nombre del Cliente a Actualizar");
@@ -194,7 +199,7 @@ public class CRUnion extends javax.swing.JFrame {
                 .addGroup(panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelClientesLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(textFieldApellidosClienteRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textFieldApellidoClienteRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelClientesLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,7 +230,7 @@ public class CRUnion extends javax.swing.JFrame {
                                 .addGap(355, 355, 355)
                                 .addGroup(panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(textFieldNombreClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textFieldApellidosClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textFieldApellidoClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldEdadClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldNacionalidadClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,7 +261,7 @@ public class CRUnion extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldApellidosClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldApellidoClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -280,7 +285,7 @@ public class CRUnion extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldApellidosClienteRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldApellidoClienteRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -704,7 +709,37 @@ public class CRUnion extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void buttonRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
+        idCliente = textFieldIdClienteRegistrar.getText();
+        nombreCliente = textFieldNombreClienteRegistrar.getText();
+        apellidoCliente = textFieldApellidoClienteRegistrar.getText();
+        nacionalidadCliente = textFieldNacionalidadClienteRegistrar.getText();
+
+        try
+        {
+            edadCliente = Integer.parseInt(textFieldEdadClienteRegistrar.getText());
+
+            if (edadCliente > 18) {
+                if ()
+                Cliente.AgregarClienteToJson(CLIENTEFILEPATH, idCliente, nombreCliente, apellidoCliente, nacionalidadCliente, edadCliente);
+                
+            } else {
+                textFieldClienteRegistrar.setText("La edad del cliente no puede ser menor a 18");
+            }
+        } catch (java.lang.NumberFormatException ex) {
+            /**
+             Atrapa la excepcion en casos donde edad no puede ser parseado como un int
+             Imprime la excepcion a la consola usando el logger y tambien muestra un mensaje al usuario
+             */
+            textFieldClienteRegistrar.setText(String.format("\"%s\" es una edad ilegal", textFieldEdadClienteRegistrar.getText()));
+            java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.WARNING, null, ex);
+        }
+
+        textFieldIdClienteRegistrar.setText("");
+        textFieldNombreClienteRegistrar.setText("");
+        textFieldApellidoClienteRegistrar.setText("");
+        textFieldNacionalidadClienteRegistrar.setText("");
+        textFieldEdadClienteRegistrar.setText("");
+
     }                                                      
 
     private void buttonRegistrarClienteActualizarActionPerformed(java.awt.event.ActionEvent evt) {                                                                 
@@ -826,9 +861,9 @@ public class CRUnion extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        File directory = new File("./");
-        System.out.println(directory.getAbsolutePath());
         Equivalencias.getInstance(25);
+        validateJson(CONVERSIONFILEPATH);
+        validateJson(CLIENTEFILEPATH);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -854,6 +889,39 @@ public class CRUnion extends javax.swing.JFrame {
                 new CRUnion().setVisible(true);
             }
         });
+    }
+
+    private static void validateJson(String filepath) {
+        JSONParser jsonParser = new JSONParser();
+
+        try {
+            Object obj = jsonParser.parse(new FileReader(filepath));
+        } catch (ParseException | IOException ex) {
+            initJson(filepath);
+        }
+
+
+    }
+
+    private static void initJson(String filepath) {
+        try {
+            FileWriter file = new FileWriter(filepath);
+            file.write("[\n]");
+            file.flush();
+            file.close();
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            createJson(filepath);
+        }
+    }
+
+    private static void createJson(String filepath) {
+        try {
+            File file = new File(filepath);
+            file.createNewFile();
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
 
     private void actualizarComboBoxes () {
@@ -915,8 +983,8 @@ public class CRUnion extends javax.swing.JFrame {
     private javax.swing.JPanel panelConversiones;
     private javax.swing.JTable tableConversionesCliente;
     private javax.swing.JTextArea textAreaHistorialTransacciones;
-    private javax.swing.JTextField textFieldApellidosClienteActualizar;
-    private javax.swing.JTextField textFieldApellidosClienteRegistrar;
+    private javax.swing.JTextField textFieldApellidoClienteActualizar;
+    private javax.swing.JTextField textFieldApellidoClienteRegistrar;
     private javax.swing.JTextField textFieldCantidadMoneda;
     private javax.swing.JTextField textFieldClienteActualizar;
     private javax.swing.JTextField textFieldClienteRegistrar;
@@ -945,7 +1013,13 @@ public class CRUnion extends javax.swing.JFrame {
     private float monedaActualizarVenta;
     private float cantidadMonedaFinal;
     private float cantidadMonedaInicial;
+    private String idCliente;
+    private String nombreCliente;
+    private String apellidoCliente;
+    private String nacionalidadCliente;
+    private int edadCliente;
     private final static String NEWLINE = "\n";
     private final static String CONVERSIONFILEPATH = "./data/conversiones.json";
+    private final static String CLIENTEFILEPATH = "./data/clientes.json";
     // End of variables declaration                   
 }

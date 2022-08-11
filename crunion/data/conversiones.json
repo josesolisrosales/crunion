@@ -1,16 +1,1 @@
-[
-    {
-        "monedaOrigen": "dolar estadounidense",
-        "montoFinal": 1320.0,
-        "monedaDestino": "colones",
-        "id": 1,
-        "montoInicial": 2.0
-    },
-    {
-        "monedaOrigen": "dolar estadounidense",
-        "montoFinal": 68.0,
-        "monedaDestino": "euros",
-        "id": 2,
-        "montoInicial": 80.0
-    }
-]
+[{"monedaOrigen":"dolar estadounidense","montoFinal":10.200001,"monedaDestino":"euros","id":1,"montoInicial":12.0}]
