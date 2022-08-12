@@ -5,11 +5,13 @@
 package crunion;
 
 import java.io.*;
-import javax.naming.InitialContext;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.swing.JOptionPane;
+import org.json.JSONException;
 
 /**
  *
@@ -51,7 +53,7 @@ public class CRUnion extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         buttonEliminarCliente = new javax.swing.JButton();
         textFieldClienteActualizar = new javax.swing.JTextField();
-        buttonRegistrarClienteActualizar = new javax.swing.JButton();
+        buttonActualizarCliente = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         textFieldEdadClienteActualizar = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
@@ -142,7 +144,6 @@ public class CRUnion extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
         jLabel22.setText("Edad del Cliente a Registrar");
 
-        comboBoxClienteEliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel9.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
         jLabel9.setText("Cliente");
@@ -158,11 +159,11 @@ public class CRUnion extends javax.swing.JFrame {
         textFieldClienteActualizar.setEditable(false);
         textFieldClienteActualizar.setFont(new java.awt.Font("Corbel", 0, 16)); // NOI18N
 
-        buttonRegistrarClienteActualizar.setFont(new java.awt.Font("Corbel", 1, 20)); // NOI18N
-        buttonRegistrarClienteActualizar.setText("ACTUALIZAR");
-        buttonRegistrarClienteActualizar.addActionListener(new java.awt.event.ActionListener() {
+        buttonActualizarCliente.setFont(new java.awt.Font("Corbel", 1, 20)); // NOI18N
+        buttonActualizarCliente.setText("ACTUALIZAR");
+        buttonActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRegistrarClienteActualizarActionPerformed(evt);
+                buttonActualizarClienteActionPerformed(evt);
             }
         });
 
@@ -189,7 +190,6 @@ public class CRUnion extends javax.swing.JFrame {
         jLabel27.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
         jLabel27.setText("ID del Cliente a Actualizar");
 
-        comboBoxClienteActualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout panelClientesLayout = new javax.swing.GroupLayout(panelClientes);
         panelClientes.setLayout(panelClientesLayout);
@@ -234,7 +234,7 @@ public class CRUnion extends javax.swing.JFrame {
                                     .addComponent(textFieldClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldEdadClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldNacionalidadClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(buttonRegistrarClienteActualizar)
+                                    .addComponent(buttonActualizarCliente)
                                     .addGroup(panelClientesLayout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +273,7 @@ public class CRUnion extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonRegistrarClienteActualizar)
+                        .addComponent(buttonActualizarCliente)
                         .addGap(18, 18, 18)
                         .addComponent(textFieldClienteActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelClientesLayout.createSequentialGroup()
@@ -340,7 +340,6 @@ public class CRUnion extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Corbel", 2, 14)); // NOI18N
         jLabel5.setText("<html>Ventas entre 3000 y 6000 impuesto de 1%<br>Ventas entre 6000 y 9000 impuesto de 2%<br>Ventas mayores a 9000 impuesto de 3%<br></html>");
 
-        comboBoxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
         jLabel6.setText("Cliente");
@@ -565,7 +564,6 @@ public class CRUnion extends javax.swing.JFrame {
             }
         });
 
-        comboBoxConsultarConversionCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel23.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
         jLabel23.setText("Cliente");
@@ -573,35 +571,6 @@ public class CRUnion extends javax.swing.JFrame {
         tableConversionesCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
             },
             new String [] {
                 "ID  Transaccion", "Moneda Origen", "Moneda Destino", "Monto Origen", "Monto Final"
@@ -622,6 +591,7 @@ public class CRUnion extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableConversionesCliente.setFont(new java.awt.Font("Corbel", 1, 14));
         jScrollPane3.setViewportView(tableConversionesCliente);
 
         javax.swing.GroupLayout panelConsultaConversionesClienteLayout = new javax.swing.GroupLayout(panelConsultaConversionesCliente);
@@ -681,6 +651,7 @@ public class CRUnion extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        ConsultaConversiones.setFont(new java.awt.Font("Corbel", 1, 14));
         jScrollPane4.setViewportView(ConsultaConversiones);
 
         javax.swing.GroupLayout panelConsultaConversionesLayout = new javax.swing.GroupLayout(panelConsultaConversiones);
@@ -704,12 +675,14 @@ public class CRUnion extends javax.swing.JFrame {
 
         getContentPane().add(mainTabbedPanel, java.awt.BorderLayout.PAGE_START);
         actualizarComboBoxes();
+        actualizarConsultaGeneral();
 
         pack();
     }// </editor-fold>                        
 
+    // Evento para el boton de registrar cliente
     private void buttonRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        idCliente = textFieldIdClienteRegistrar.getText();
+        idCliente = textFieldIdClienteRegistrar.getText().toLowerCase();
         nombreCliente = textFieldNombreClienteRegistrar.getText();
         apellidoCliente = textFieldApellidoClienteRegistrar.getText();
         nacionalidadCliente = textFieldNacionalidadClienteRegistrar.getText();
@@ -719,8 +692,21 @@ public class CRUnion extends javax.swing.JFrame {
             edadCliente = Integer.parseInt(textFieldEdadClienteRegistrar.getText());
 
             if (edadCliente > 18) {
-                if ()
-                Cliente.AgregarClienteToJson(CLIENTEFILEPATH, idCliente, nombreCliente, apellidoCliente, nacionalidadCliente, edadCliente);
+                if (!Cliente.checkClienteRepetido(idCliente, clientesArray))
+                {
+                    Cliente.addCliente(
+                        idCliente, 
+                        nombreCliente, 
+                        apellidoCliente, 
+                        nacionalidadCliente, 
+                        edadCliente,
+                        clientesArray,
+                        CLIENTEFILEPATH);
+                        textFieldClienteRegistrar.setText(String.format("Cliente con el ID %s fue registrado con exito", idCliente));
+                        actualizarComboBoxes();
+                } else {
+                    textFieldClienteRegistrar.setText(String.format("El cliente con el ID %s ya existe", idCliente));
+                }
                 
             } else {
                 textFieldClienteRegistrar.setText("La edad del cliente no puede ser menor a 18");
@@ -742,63 +728,142 @@ public class CRUnion extends javax.swing.JFrame {
 
     }                                                      
 
-    private void buttonRegistrarClienteActualizarActionPerformed(java.awt.event.ActionEvent evt) {                                                                 
-        // TODO add your handling code here:
+    // Evento para el boton de ActualizarCliente
+    private void buttonActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {                                                                 
+        idCliente = "";
+        try {
+            idCliente = comboBoxClienteActualizar.getSelectedItem().toString().toLowerCase();
+        } catch (NullPointerException ex) {
+            idCliente = "";
+        }
+        nombreCliente = textFieldNombreClienteActualizar.getText();
+        apellidoCliente = textFieldApellidoClienteActualizar.getText();
+        nacionalidadCliente = textFieldNacionalidadClienteActualizar.getText();
+
+        try {
+            edadCliente = Integer.parseInt(textFieldEdadClienteActualizar.getText());
+            if (!idCliente.equalsIgnoreCase("")) {
+                if (Helpers.checkClienteActualizable(idCliente, conversionesArray)) {
+                    Cliente.updateCliente(idCliente, nombreCliente, apellidoCliente, nacionalidadCliente, edadCliente, clientesArray, CLIENTEFILEPATH);
+                } else {
+                    textFieldClienteActualizar.setText(String.format("Los clientes con conversiones registradas no pueden ser actualizados"));
+                }
+            } else {
+                textFieldClienteActualizar.setText(String.format("Se debe registrar un cliente antes de realizar una conversion"));
+            }
+        } catch (NumberFormatException ex) {
+            textFieldClienteActualizar.setText(String.format("\"%s\" es una edad ilegal", textFieldEdadClienteActualizar.getText()));
+            java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.WARNING, null, ex);
+        }
+
+        textFieldNombreClienteActualizar.setText("");
+        textFieldApellidoClienteActualizar.setText("");
+        textFieldNacionalidadClienteActualizar.setText("");
     }                                                                
 
-    private void buttonEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        // TODO add your handling code here:
+    // Evento para el boton de Eliminar cliente
+    private void buttonEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        idCliente = "";
+        try {
+            idCliente = comboBoxClienteEliminar.getSelectedItem().toString().toLowerCase();
+        } catch (NullPointerException ex) {
+            idCliente = "";
+        }
+        
+        if (!idCliente.equalsIgnoreCase("")) {
+            if (Helpers.checkClienteActualizable(idCliente, conversionesArray)) {
+                Cliente.deleteCliente(idCliente, clientesArray, CLIENTEFILEPATH);
+                actualizarComboBoxes();
+            } else {
+                textFieldClienteRegistrar.setText("No se puede eliminar un cliente con conversiones registradas");
+            }
+        }
+
     }                                                     
 
-    private void buttonCovertirActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    // Evento para el boton de realizar una conversion
+    private void buttonCovertirActionPerformed(java.awt.event.ActionEvent evt) {  
+
         monedaOrigen = comboBoxMonedaOrigen.getSelectedItem().toString().toLowerCase();
         monedaDestino = comboBoxMonedaDestino.getSelectedItem().toString().toLowerCase();
+
+        idCliente = "";
+        try {
+            idCliente = comboBoxCliente.getSelectedItem().toString().toLowerCase();
+        } catch (NullPointerException ex) {
+            idCliente = "";
+        }
 
         //Variable usada para guardar temporalmente el string procesado
         transaccionStringTmp = "";
 
-        /**
-         Este Try statement maneja la logica principal de GUI  y a su vez realiza el checkeo de la cantidad introducida
-         Maneja las excepciones dependiendo de si la cantidad es un float, si es negativa o en el caso de ser 0 no realiza ningun calculo adicional y solo imprime 0 = 0
-         */
-        try {
-            cantidadMonedaInicial = Float.parseFloat(textFieldCantidadMoneda.getText());
+        if (!idCliente.equalsIgnoreCase(""))
+        {
+            /**
+            Este Try statement maneja la logica principal de GUI  y a su vez realiza el checkeo de la cantidad introducida
+            Maneja las excepciones dependiendo de si la cantidad es un float, si es negativa o en el caso de ser 0 no realiza ningun calculo adicional y solo imprime 0 = 0
+            */
+            try {
+                cantidadMonedaInicial = Float.parseFloat(textFieldCantidadMoneda.getText());
 
-            if (cantidadMonedaInicial == 0) {
-                // Escenario cuando cantidadMonedaIncial = 0
-                transaccionStringTmp = String.format("%.2f %s equivalen a 0.00 %s", cantidadMonedaInicial, monedaOrigen, monedaDestino);
-                textFieldTransaccionReciente.setText(transaccionStringTmp);
-                textAreaHistorialTransacciones.append(transaccionStringTmp + NEWLINE);
+                if (cantidadMonedaInicial == 0) {
+                    // Escenario cuando cantidadMonedaIncial = 0
+                    transaccionStringTmp = String.format("%.2f %s equivalen a 0.00 %s", cantidadMonedaInicial, monedaOrigen, monedaDestino);
+                    textFieldTransaccionReciente.setText(transaccionStringTmp);
+                    textAreaHistorialTransacciones.append(transaccionStringTmp + NEWLINE);
 
-            } else if (cantidadMonedaInicial < 0) {
-                // Escenario cuando cantidad de moneda incial es negativa
-                textFieldTransaccionReciente.setText(String.format("%.2f es una cantidad ilegal (no se admiten numeros negativos)", cantidadMonedaInicial));
+                } else if (cantidadMonedaInicial < 0) {
+                    // Escenario cuando cantidad de moneda incial es negativa
+                    textFieldTransaccionReciente.setText(String.format("%.2f es una cantidad ilegal (no se admiten numeros negativos)", cantidadMonedaInicial));
 
-            } else {
+                } else {
+                    /**
+                    Escenario cuando la cantidad es valida y diferente de 0.
+                    Imprime el calculo en la pantalla de la transaccion actual y tambien imprime la transaccion al historial de transaciones para visibilidad
+                    */
+                    cantidadMonedaFinal = ConversionesNuevas.ConversionMonedas(cantidadMonedaInicial, monedaOrigen, monedaDestino);
+                    transaccionStringTmp = String.format("%.2f %s equivalen a %.2f %s", cantidadMonedaInicial, monedaOrigen, cantidadMonedaFinal, monedaDestino);
+
+                    // Popup de confirmar conversion, si el usuario selecciona "Si", la conversion se registra.
+                    int input = JOptionPane.showConfirmDialog(null, String.format("%s, desea aceptar esta conversion?", transaccionStringTmp));
+                    if (input == 0) {
+                        textFieldTransaccionReciente.setText(transaccionStringTmp);
+                        textAreaHistorialTransacciones.append(transaccionStringTmp + NEWLINE);
+                        
+                        // Generar objecto para agregar al JSON
+                        int idConversion = Helpers.getNextConversionID(conversionesArray);
+                        JSONObject conversion = new JSONObject();
+                        conversion.put("idCliente", idCliente);
+                        conversion.put("id", idConversion);
+                        conversion.put("monedaOrigen", monedaOrigen);
+                        conversion.put("monedaDestino", monedaDestino);
+                        conversion.put("montoInicial", cantidadMonedaInicial);
+                        conversion.put("montoFinal", cantidadMonedaFinal);
+                        Helpers.addToJson(conversion, conversionesArray, CONVERSIONFILEPATH);
+                        actualizarConsultaGeneral();
+                    } else
+                    {
+                        textFieldTransaccionReciente.setText(String.format("Transaccion Cancelada!"));
+                    }
+
+                }
+            } catch (java.lang.NumberFormatException ex) {
                 /**
-                 Escenario cuando la cantidad es valida y diferente de 0.
-                 Imprime el calculo en la pantalla de la transaccion actual y tambien imprime la transaccion al historial de transaciones para visibilidad
-                 */
-                cantidadMonedaFinal = ConversionesNuevas.ConversionMonedas(cantidadMonedaInicial, monedaOrigen, monedaDestino);
-                transaccionStringTmp = String.format("%.2f %s equivalen a %.2f %s", cantidadMonedaInicial, monedaOrigen, cantidadMonedaFinal, monedaDestino);
-                textFieldTransaccionReciente.setText(transaccionStringTmp);
-                textAreaHistorialTransacciones.append(transaccionStringTmp + NEWLINE);
-                Helpers.agregarConversionToJson(CONVERSIONFILEPATH, monedaOrigen, monedaDestino, cantidadMonedaInicial, cantidadMonedaFinal);
+                Atrapa la excepcion en casos donde cantidadMonedaInicial no puede ser parseado como un float
+                Imprime la excepcion a la consola usando el logger y tambien muestra un mensaje al usuario
+                */
+                textFieldTransaccionReciente.setText(String.format("\"%s\" es una cantidad ilegal", textFieldCantidadMoneda.getText()));
+                java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.WARNING, null, ex);
 
             }
-        } catch (java.lang.NumberFormatException ex) {
-            /**
-             Atrapa la excepcion en casos donde cantidadMonedaInicial no puede ser parseado como un float
-             Imprime la excepcion a la consola usando el logger y tambien muestra un mensaje al usuario
-             */
-            textFieldTransaccionReciente.setText(String.format("\"%s\" es una cantidad ilegal", textFieldCantidadMoneda.getText()));
-            java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.WARNING, null, ex);
-
+        } else{
+            textFieldTransaccionReciente.setText(String.format("Se debe registrar un cliente antes de realizar una conversion"));
         }
         // Reinicia el cuadro de texto de input
         textFieldCantidadMoneda.setText("");
     }                                              
 
+    // Evento para el boton de agregar una moneda
     private void buttonMonedaAgregarActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         nuevaMoneda = textFieldNombreMonedaAgregar.getText();
 
@@ -823,6 +888,7 @@ public class CRUnion extends javax.swing.JFrame {
         textFieldNombreMonedaAgregar.setText(""); 
     }                                                   
 
+    // Evento para el boton de actualizar una moneda existente
     private void buttonMonedaActualizarActionPerformed(java.awt.event.ActionEvent evt) {                                                       
         String nombreMoneda = comboBoxMonedaActualizar.getSelectedItem().toString().toLowerCase();
         try {
@@ -847,9 +913,38 @@ public class CRUnion extends javax.swing.JFrame {
         textFieldCompraMonedaActualizar.setText("");
         textFieldVentaMonedaActualizar.setText("");
     }                                                      
-
+    
+    // Evento para el boton de actualizar la consulta por cliente
     private void buttonConsultarConversionClienteActionPerformed(java.awt.event.ActionEvent evt) {                                                                 
-        // TODO add your handling code here:
+        idCliente = "";
+        try {
+            idCliente = comboBoxConsultarConversionCliente.getSelectedItem().toString().toLowerCase();
+        } catch (NullPointerException ex) {
+            idCliente = "";
+        }
+
+        if (!idCliente.equalsIgnoreCase("")) {
+            Object[][] contenidoTableConsultaCliente = new Object [conversionesArray.length()][5];
+            int externalTableIterator = 0;
+            for (int i = 0; i < conversionesArray.length(); i++) {
+                JSONObject conversion = conversionesArray.getJSONObject(i);
+                if (conversion.getString("idCliente").equalsIgnoreCase(idCliente))
+                {
+                    contenidoTableConsultaCliente[externalTableIterator][0] = conversion.get("id").toString();
+                    contenidoTableConsultaCliente[externalTableIterator][1] = conversion.getString("monedaOrigen");
+                    contenidoTableConsultaCliente[externalTableIterator][2] = conversion.getString("monedaDestino");
+                    contenidoTableConsultaCliente[externalTableIterator][3] = conversion.get("montoInicial").toString();
+                    contenidoTableConsultaCliente[externalTableIterator][4] = conversion.get("montoFinal").toString();
+                    externalTableIterator++;          
+                }
+                tableConversionesCliente.setModel(
+                    new javax.swing.table.DefaultTableModel(contenidoTableConsultaCliente,
+                    new String [] {
+                        "ID  Transaccion", "Moneda Origen", "Moneda Destino", "Monto Inicial", "Monto Final"}
+                    )
+                );
+            }
+        }
     }                                                                
 
     /**
@@ -862,8 +957,9 @@ public class CRUnion extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         Equivalencias.getInstance(25);
-        validateJson(CONVERSIONFILEPATH);
-        validateJson(CLIENTEFILEPATH);
+        loadConversiones(CONVERSIONFILEPATH);
+        loadClientes(CLIENTEFILEPATH);
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -891,24 +987,61 @@ public class CRUnion extends javax.swing.JFrame {
         });
     }
 
-    private static void validateJson(String filepath) {
-        JSONParser jsonParser = new JSONParser();
+    // Metodo reutilizable para generar la consulta general
+    private void actualizarConsultaGeneral() {
+        Object[][] contenidoTableConsultaGeneral = new Object [conversionesArray.length()][6];
+        for (int i = 0; i < conversionesArray.length(); i++) {
+            JSONObject conversion = conversionesArray.getJSONObject(i);
+            contenidoTableConsultaGeneral[i][0] = conversion.get("id").toString();
+            contenidoTableConsultaGeneral[i][1] = conversion.get("idCliente").toString();
+            contenidoTableConsultaGeneral[i][2] = conversion.getString("monedaOrigen");
+            contenidoTableConsultaGeneral[i][3] = conversion.getString("monedaDestino");
+            contenidoTableConsultaGeneral[i][4] = conversion.get("montoInicial").toString();
+            contenidoTableConsultaGeneral[i][5] = conversion.get("montoFinal").toString();
+
+
+
+            ConsultaConversiones.setModel(new javax.swing.table.DefaultTableModel(contenidoTableConsultaGeneral, 
+                new String [] {
+                    "ID de transaccion", "ID de cliente", "Moneda Origen", "Moneda Destino", "Monto Inicial", "Monto Final"
+                    }
+                )
+            );
+        }
+    }
+    
+    // Carga los clientes a memoria de un json file
+    private static void loadClientes(String filepath) {
 
         try {
-            Object obj = jsonParser.parse(new FileReader(filepath));
-        } catch (ParseException | IOException ex) {
+            String content = new String((Files.readAllBytes(Paths.get(filepath))));
+            clientesArray = new JSONArray(content);
+        } catch (JSONException | IOException ex ) {
             initJson(filepath);
         }
+    }
+    
+    // Carga las conversiones a memoria de un json file
+    private static void loadConversiones(String filepath) {
 
-
+        try {
+            String content = new String((Files.readAllBytes(Paths.get(filepath))));
+            conversionesArray = new JSONArray(content);
+        } catch (JSONException | IOException ex ) {
+            initJson(filepath);
+        }
     }
 
+    // Validaciones de los json file inciales
     private static void initJson(String filepath) {
+
         try {
             FileWriter file = new FileWriter(filepath);
             file.write("[\n]");
             file.flush();
             file.close();
+            System.out.println("La aplicacion sobreescribio el JSON no valido, debe relanzar la aplicacion para continuar");
+            
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             createJson(filepath);
@@ -916,22 +1049,29 @@ public class CRUnion extends javax.swing.JFrame {
     }
 
     private static void createJson(String filepath) {
+
         try {
             File file = new File(filepath);
             file.createNewFile();
+            System.out.println("La aplicacion sobreescribio el JSON no valido, debe relanzar la aplicacion para continuar");
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
 
+    // Metodo reutilizable para actualiozar todos los comboBoxes, utilizado en multiples acciones
     private void actualizarComboBoxes () {
         
         comboBoxMonedaOrigen.setModel(new javax.swing.DefaultComboBoxModel(Equivalencias.getInstance().getDescripcionesMonedasValidas()));
         comboBoxMonedaDestino.setModel(new javax.swing.DefaultComboBoxModel(Equivalencias.getInstance().getDescripcionesMonedasValidas()));
         comboBoxMonedaActualizar.setModel(new javax.swing.DefaultComboBoxModel(Equivalencias.getInstance().getDescripcionesMonedasValidas()));
+        comboBoxClienteActualizar.setModel(new javax.swing.DefaultComboBoxModel(Cliente.getClientesID(clientesArray)));
+        comboBoxClienteEliminar.setModel(new javax.swing.DefaultComboBoxModel(Cliente.getClientesID(clientesArray)));
+        comboBoxConsultarConversionCliente.setModel(new javax.swing.DefaultComboBoxModel(Cliente.getClientesID(clientesArray)));
+        comboBoxCliente.setModel(new javax.swing.DefaultComboBoxModel(Cliente.getClientesID(clientesArray)));
  
     }
-
+    
     // Variables declaration - do not modify                     
     private javax.swing.JTable ConsultaConversiones;
     private javax.swing.JButton buttonConsultarConversionCliente;
@@ -940,7 +1080,7 @@ public class CRUnion extends javax.swing.JFrame {
     private javax.swing.JButton buttonMonedaActualizar;
     private javax.swing.JButton buttonMonedaAgregar;
     private javax.swing.JButton buttonRegistrarCliente;
-    private javax.swing.JButton buttonRegistrarClienteActualizar;
+    private javax.swing.JButton buttonActualizarCliente;
     private javax.swing.JComboBox<String> comboBoxCliente;
     private javax.swing.JComboBox<String> comboBoxClienteActualizar;
     private javax.swing.JComboBox<String> comboBoxClienteEliminar;
@@ -1021,5 +1161,7 @@ public class CRUnion extends javax.swing.JFrame {
     private final static String NEWLINE = "\n";
     private final static String CONVERSIONFILEPATH = "./data/conversiones.json";
     private final static String CLIENTEFILEPATH = "./data/clientes.json";
+    static JSONArray conversionesArray;
+    static JSONArray clientesArray;
     // End of variables declaration                   
 }

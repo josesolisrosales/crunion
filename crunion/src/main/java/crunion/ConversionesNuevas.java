@@ -30,19 +30,15 @@ public class ConversionesNuevas extends Conversiones {
         precioBaseCompraDolar = Equivalencias.getInstance().precioCompra(monedaDestino);
         if (montoDolar < 3000 ) {
             precioCompraDolar = precioBaseCompraDolar;
-            System.out.println("primero");
 
         } else if ( Helpers.isBetween(montoDolar, 2999, 6000)) {
             
             precioCompraDolar = precioBaseCompraDolar + (diferenciaCompraVenta*0.15f);
-            System.out.println("segundo");
 
         } else if (Helpers.isBetween(montoDolar, 5999, 9000)) {
             precioCompraDolar = precioBaseCompraDolar + (diferenciaCompraVenta*0.25f);
-            System.out.println("tercero");
         } else {
             precioCompraDolar = precioBaseCompraDolar + (diferenciaCompraVenta*0.35f);
-            System.out.println("cuarto");
         }
         cantidadMonedaFinal = precioCompraDolar * montoDolar;
         return cantidadMonedaFinal;

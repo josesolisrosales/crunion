@@ -1,57 +1,72 @@
 package crunion;
 
-import java.io.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Cliente {
 
-    // public static int CargarClientes() {
-        
-    // }
+    public static void addCliente(String id, String nombre, String apellido, String nacionalidad, int edad, JSONArray array, String filepath) {
+        JSONObject cliente = new JSONObject();
+        cliente.put("id", id);
+        cliente.put("nombre", nombre);
+        cliente.put("apellido", apellido);
+        cliente.put("nacionalidad", nacionalidad);
+        cliente.put("edad", edad);
 
-    public static boolean RevisarClienteRepetido(String filepath, String id) {
-        JSONParser jsonParser = new JSONParser();
-        try {
-            Object obj = jsonParser.parse(new FileReader(filepath));
-            JSONArray jsonArray = (JSONArray)obj;
-
-            for (int i = 0; i < jsonArray.size(); i++) {
-                JSONObject cliente = jsonArray.get;
-                String idCliente = cliente.
-                
-            }
-        } catch (ParseException | IOException ex) {
-            java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        Helpers.addToJson(cliente, array, filepath);
     }
 
-    public static void AgregarClienteToJson(String filepath, String id, String nombre, String apellido, String nacionalidad, int edad) {
-        JSONParser jsonParser = new JSONParser();
+    public static void updateCliente(String id, String nombre, String apellido, String nacionalidad, int edad, JSONArray array, String filepath) {
 
-        try {
-            Object obj = jsonParser.parse(new FileReader(filepath));
-            JSONArray jsonArray = (JSONArray)obj;
-
-            JSONObject cliente = new JSONObject();
-            cliente.put("id", id);
-            cliente.put("nombre", nombre);
-            cliente.put("apellido", apellido);
-            cliente.put("nacionalidad", nacionalidad);
-            cliente.put("edad", edad);
-
-            jsonArray.add(cliente);
-
-            FileWriter file = new FileWriter(filepath);
-            file.write(jsonArray.toJSONString());
-            file.flush();
-            file.close();
-
-        } catch (ParseException | IOException ex) {
-            java.util.logging.Logger.getLogger(CRUnion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject cliente = array.getJSONObject(i);
+            if (cliente.getString("id").equalsIgnoreCase(id))
+            {
+                cliente.put("nombre", nombre);
+                cliente.put("apellido", apellido);
+                cliente.put("nacionalidad", nacionalidad);
+                cliente.put("edad", edad);
+            }
         }
+
+        Helpers.sendToJsonFile(array, filepath);
+
+    }
+
+    public static void deleteCliente(String id, JSONArray array, String filepath) {
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject cliente = array.getJSONObject(i);
+            if (cliente.getString("id").equalsIgnoreCase(id))
+            {
+                array.remove(i);
+            }
+        }
+
+        Helpers.sendToJsonFile(array, filepath);
+    }
+
+    public static String[] getClientesID(JSONArray array) {
+        String[] idClientesStrings = new String[array.length()];
+
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            idClientesStrings[i] = object.getString("id");
+        }
+
+        return idClientesStrings;
+    }
+
+    public static boolean checkClienteRepetido(String id, JSONArray array) {
+
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            if (object.getString("id").equalsIgnoreCase(id))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static String id;
